@@ -1,0 +1,16 @@
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: ocp-default
+  namespace: openshift-gitops
+spec:
+  clusterSets:
+  - default
+  predicates:
+  - requiredClusterSelector:
+      labelSelector:
+        matchExpressions:
+        - key: operators
+          operator: In
+          values:
+          - ocp-default

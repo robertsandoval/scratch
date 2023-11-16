@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: odf-storagesystem
+  namespace: openshift-gitops
+spec:
+  generators:
+  - clusterDecisionResource:
+      configMapRef: acm-placement
+      labelSelector:
+        matchLabels:
+          cluster.open-cluster-management.io/placement: ocp-default
+      requeueAfterSeconds: 180
+  template:
+    metadata:
+      labels:
+        velero.io/exclude-from-backup: "true"
+      name: odf-storagesystem-{{name}}
+    spec:
+      destination:
+        namespace: openshift-storage
+        server: '{{server}}'
+      project: default
+      source:
+        path: openshift-data-foundation-operator/instance/overlays/aws
+        repoURL: https://github.com/robertsandoval/scratch.git
+        targetRevision: main
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+        - PruneLast=true
