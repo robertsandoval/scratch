@@ -29,10 +29,10 @@ spec:
           resources:
             requests:
               storage: 2Ti
-          storageClassName: thin
+          storageClassName: thin-csi
           volumeMode: Block
         status: {}
-      name: ocs-deviceset-thin
+      name: ocs-deviceset-thin-csi
       placement: {}
       portable: true
       preparePlacement: {}

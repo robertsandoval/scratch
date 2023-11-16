@@ -1,0 +1,12 @@
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: binding-policy-serverless
+placementRef:
+  name: placement-policy-serverless
+  kind: Placement
+  apiGroup: cluster.open-cluster-management.io
+subjects:
+- name: pl-serverless
+  kind: Policy
+  apiGroup: policy.open-cluster-management.io
